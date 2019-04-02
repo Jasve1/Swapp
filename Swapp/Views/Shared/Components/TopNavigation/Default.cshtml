@@ -1,0 +1,16 @@
+﻿
+
+<li>
+    <a class="nav-option" asp-action="Index" asp-controller="Store">
+        <p>find stuff!</p>
+    </a>
+ </li>
+<li>
+    <a class="nav-option" asp-action="Index" asp-controller="Home">
+        <p>Profile</p>
+    </a>
+</li>
+<li class="userpic">
+    <img src="~/images/profilePics/@ViewBag.ProfilePicture" class="profilePic" alt="Profile picture" />
+    <a class="userpic-overlay" asp-action="Index" asp-controller="Home"></a>
+</li>

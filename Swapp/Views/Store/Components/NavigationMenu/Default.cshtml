@@ -1,0 +1,21 @@
+﻿@model IEnumerable<string>
+
+<ul id="category-nav">
+    <li class="btn category-btn">
+        <a asp-action="Index"
+           asp-controller="Store"
+           asp-route-category="">
+            <p>all stuff</p>
+        </a>
+    </li>
+        
+    @foreach (string category in Model)
+    {
+        <li class="btn category-btn @(category == ViewBag.SelectedCategory ? "active-category-btn": "not-active-category-btn")">
+            <a asp-action="Index" asp-controller="Store"
+               asp-route-category="@category">
+                <p>@category</p>
+            </a>
+        </li>
+    }
+</ul>

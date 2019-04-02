@@ -1,0 +1,60 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="profileWrap">
+    <div class="create-item">
+        <header class="title grid" id="findstuff-title">
+            <h1>edit item</h1>
+        </header>
+        <form class="form-grid" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="AspNetUserId" type="hidden" value="@ViewBag.UserId" />
+            <input type="hidden" asp-for="ProductId" />
+
+            <div class="describeProduct">
+                <div class="form-group">
+                    <h4>title</h4>
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                    <label asp-for="ProductName" class="control-label" hidden></label>
+                    <input asp-for="ProductName" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <h4>description</h4>
+                    <span asp-validation-for="ProductDescription" class="text-danger"></span>
+                    <label asp-for="ProductDescription" class="control-label" hidden></label>
+                    <input asp-for="ProductDescription" class="form-control" />
+                </div>
+
+                <div class="form-group select-list">
+                    <h4>category</h4>
+                    <label asp-for="CategoryId" hidden></label>
+                    <div class="custom-select">
+                        <select id="category" asp-for="CategoryId" asp-items="@ViewData["Categories"] as List<SelectListItem>">
+                            <option value="" hidden>choose a category</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <a class="btn red-button dark" asp-controller="Home" asp-action="Index">
+                    <p>cancel</p>
+                </a>
+                <div class="form-submit">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <button type="submit" class="btn submit_button">
+                        <p>edit</p>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script src="~/script/showProductDisplay.js"></script>

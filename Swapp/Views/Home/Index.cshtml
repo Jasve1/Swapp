@@ -1,0 +1,91 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="profileWrap profile">
+    <div class="profile-info">
+        <header class="title grid" id="findstuff-title">
+            <h1>profile</h1>
+        </header>
+        <div class="profile_content">
+            <div class="profile-edit-delete">
+                <div class="profilePic-display">
+                    <img src="~/images/profilePics/@Model.AppUser.ProfilePic" class="profilePic" alt="Profile picture of @Model.AppUser.UserName" />
+                </div>
+                <form asp-action="Delete" asp-route-id="@ViewBag.UserId" method="post">
+                    <a class="option edit-link" asp-action="Edit" asp-route-id="@ViewBag.UserId">
+                        <p class="edit">edit profile</p>
+                    </a>
+                    <input type="hidden" name="profilePic" asp-for="AppUser.ProfilePic" />
+                    <input type="hidden" name="products" value="@Model.Products" />
+                </form>
+            </div>
+            <ul class="info">
+                <li><p>name: <span>@Model.AppUser.UserName @Model.AppUser.LastName</span></p></li>
+                <li><p>email: <span>@Model.AppUser.Email</span></p></li>
+                <li><p>city: <span>@Model.AppUser.City</span></p></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="inventory">
+        <header class="title grid" id="findstuff-title">
+            <h1>your stuff</h1>
+        </header>
+        <div class="item-grid">
+            @foreach (Product product in Model.Products)
+            {
+            <div class="p-grid-element">
+                <div class="item-small" onclick="showProduct(@product.ProductId)">
+                    <img src="~/images/productImages/@product.Images.FirstOrDefault().ImageUrl" alt="@product.Images.FirstOrDefault().ImageName" />
+                    <div class="item-small-overlay">
+                        <h3>@product.ProductName</h3>
+                    </div>
+                </div>
+            </div>
+
+            }
+            <a class="btn item-small add-stuff" asp-controller="Product" asp-action="Create">
+                <p>add stuff!</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="swapps">
+        <header>
+            <h1>swapps in progress</h1>
+        </header>
+        <div class="item-grid">
+            <a class="btn item-small add-stuff" asp-controller="Store" asp-action="Index">
+                <p>start swapping!</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="delete_logout">
+        @if (User?.Identity?.IsAuthenticated ?? false)
+        {
+            <a class="btn red-button logout" asp-controller="StartPage" asp-action="Logout">
+                <p>Logout</p>
+            </a>
+        }
+        <form asp-action="Delete" asp-route-id="@ViewBag.UserId" method="post">
+            <input type="hidden" name="profilePic" asp-for="AppUser.ProfilePic" />
+            <input type="hidden" name="products" value="@Model.Products" />
+            <button class="option" type="submit">
+                <p class="delete">delete profile</p>
+            </button>
+        </form>
+    </div>
+    
+
+    @foreach (Product p in Model.Products)
+    {
+        @await Html.PartialAsync("_ProductDetailsDisplay", p)
+    }
+
+</div>
+
+
+<script src="~/script/showProductDisplay.js"></script>

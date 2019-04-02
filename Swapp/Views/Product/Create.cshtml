@@ -1,0 +1,87 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<div class="profileWrap">
+    
+    <div class="create-item">
+        <header class="title grid" id="findstuff-title">
+            <h1>upload an item</h1>
+        </header>
+        <form class="form-grid" asp-action="Create" enctype="multipart/form-data">
+
+            <input asp-for="AspNetUserId" type="hidden" value="@ViewBag.UserId" />
+
+            <div class="describeProduct">
+                <div class="form-group">
+                    <h4>title</h4>
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                    <label asp-for="ProductName" class="control-label" hidden></label>
+                    <input asp-for="ProductName" class="form-control" placeholder="What is your product" />
+                </div>
+
+                <div class="form-group">
+                    <h4>description</h4>
+                    <span asp-validation-for="ProductDescription" class="text-danger"></span>
+                    <label asp-for="ProductDescription" class="control-label" hidden></label>
+                    <input asp-for="ProductDescription" class="form-control" placeholder="Describe your product" />
+                </div>
+
+                <div class="form-group select-list">
+                    <h4>category</h4>
+                    <label asp-for="CategoryId" hidden></label>
+                    <div class="custom-select">
+                        <select id="category" asp-for="CategoryId" asp-items="@ViewData["Categories"] as List<SelectListItem>">
+                            <option value="" hidden>choose a category</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="img-upload">
+                <div class="form-group upload">
+                    <label for="productImgOne" class="btn upload-button">
+                        upload an image
+                        <img id="imgOne" class="img-preview" />
+                    </label>
+                    <input id="productImgOne" title="Upload a image" onchange="imagePreview(event, 'imgOne')" name="pictureFile" type="file" hidden />
+                </div>
+                <div class="form-group upload">
+                    <label for="productImgTwo" class="btn upload-button">
+                        upload an image
+                        <img id="imgTwo" class="img-preview" />
+                    </label>
+                    <input id="productImgTwo" title="Upload a image" onchange="imagePreview(event, 'imgTwo')" name="pictureFile" type="file" hidden />
+                </div>
+                <div class="form-group upload">
+                    <label for="productImgThree" class="btn upload-button">
+                        upload an image
+                        <img id="imgThree" class="img-preview" />
+                    </label>
+                    <input id="productImgThree" title="Upload a image" onchange="imagePreview(event, 'imgThree')" name="pictureFile" type="file" hidden />
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <a class="btn red-button dark" asp-controller="Home" asp-action="Index">
+                    <p>cancel</p>
+                </a>
+                <div class="form-submit">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <button type="submit" class="btn submit_button">
+                        <p>Create</p>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+    
+
+<script src="~/script/showProductDisplay.js"></script>

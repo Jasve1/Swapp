@@ -1,0 +1,36 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@await Component.InvokeAsync("NavigationMenu")
+
+<div id="findstuff-grid">
+    <header class="headline">
+        <h1>find stuff!</h1>
+    </header>
+
+    <div id="findstuff-browser">
+
+        @foreach (Product product in Model)
+        {
+            <div class="item-small" onclick="showProduct(@product.ProductId)">
+                <img src="~/images/productImages/@product.Images.First().ImageUrl"
+                     alt="@product.Images.First().ImageName" />
+                <div class="item-small-overlay">
+                    <h3>@product.ProductName</h3>
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>
+
+
+@foreach (Product p in Model)
+{
+    @await Html.PartialAsync("_ProductDetailsDisplay", p)
+}
+
+<script src="~/script/showProductDisplay.js"></script>

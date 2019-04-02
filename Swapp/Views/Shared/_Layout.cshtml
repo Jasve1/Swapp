@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/styles/style.css" type="text/css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header id="main_header">
+        <div id="logo">
+            <h1 id="logo-text"><a asp-action="Index" asp-controller="Store">swapp!</a></h1>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                @if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    @await Component.InvokeAsync("TopNavigation")
+                }
+            </ul>
+        </nav>
+    </header>
+    <div id="wrapper">
+        @RenderBody()
+    </div>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/serviceworker.js").then(function (registration) {
+                console.log("Service Worker registered with scope:", registration.scope);
+            }).catch(function (err) {
+                console.log("Service Worker registration failed:", err);
+            });
+        }
+    </script>
+
+    @RenderSection("scripts", false)
+</body>
+</html>

@@ -1,0 +1,66 @@
+﻿@model SignUp
+
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+@section scripts {
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}
+
+<div class="login_signup_page">
+    <header>
+        <h2>Sign Up</h2>
+    </header>
+    <form asp-action="SignUp" enctype="multipart/form-data" method="post" class="form">
+        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+        <div class="form-group">
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <label asp-for="Name" hidden></label>
+            <input asp-for="Name" data-val="true" data-val-required="Please write your first name" 
+                class="form-control" asp-placeholder-for="Name" />
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+            <label asp-for="LastName" hidden></label>
+            <input asp-for="LastName" data-val="true" data-val-required="Please write your last name" 
+                class="form-control" asp-placeholder-for="LastName" />
+        </div>
+        <div class="form-group upload">
+            <span asp-validation-for="ProfilePic" class="text-danger"></span>
+            <label asp-for="ProfilePic" for="NewImage" class="btn upload-button">
+                choose profile picture
+                <img id="uploadProfilePic" class="img-preview-profilePic" />
+            </label>
+            <input id="NewImage" type="file" onchange="imagePreview(event, 'uploadProfilePic')" 
+                data-val="true" data-val-required="Please choose a profile picture"
+                asp-for="ProfilePic" />
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="City" class="text-danger"></span>
+            <label asp-for="City" hidden></label>
+            <input asp-for="City" data-val="true" data-val-required="Please write the name of your city" 
+                asp-placeholder-for="City" />
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <label asp-for="Email" hidden></label>
+            <input asp-for="Email" data-val="true" data-val-required="Please write your email" 
+                class="form-control" asp-placeholder-for="Email" />
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <label asp-for="Password" hidden></label>
+            <input asp-for="Password" data-val="true" data-val-required="Please create a password" 
+                class="form-control" asp-placeholder-for="Password" />
+        </div>
+        <button type="submit" class="btn submit_button">
+            <p>Sign Up</p>
+        </button>
+    </form>
+</div>
+
+
+<script src="~/script/showProductDisplay.js"></script>

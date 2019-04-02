@@ -1,0 +1,65 @@
+﻿@model Product
+
+
+<div id="@Model.ProductId" class="productDisplay">
+    <div class="display">
+        <div class="display-title">
+            <h1>@Model.ProductName</h1>
+        </div>
+        <div class="exit" onclick="exit(@Model.ProductId)">
+            <img src="~/images/exit.svg" alt="exit" />
+        </div>
+        <div class="item-display-grid">
+            <section class="productDescribtion">
+                <div class="productImg">
+                    @foreach (Image image in Model.Images)
+                    {
+                        <div class="img-display-frame">
+                            <img src="~/images/productImages/@image.ImageUrl" alt="@image.ImageName" />
+                        </div>
+                    }
+                </div>
+
+
+                <div class="dropdown">
+                    @if (Model.AspNetUserId != ViewBag.UserId)
+                    {
+                        <div class="custom-select">
+                            <select id="productDropDown" asp-items="@ViewBag.ProductDropDownList as List<SelectListItem>">
+                                <option value="" hidden>choose an item to swapp!</option>
+                            </select>
+                        </div>
+
+                    }
+                </div>
+
+                <div class="productText">
+                    <p>@Model.ProductDescription</p>
+                </div>
+
+
+            </section>
+            <section class="profileDisplay">
+                <div class="profile-describtion">
+                    <h4 class="profileName">@Model.AspNetUser.UserName @Model.AspNetUser.LastName</h4>
+                    <h4 class="profileCity">city: @Model.AspNetUser.City</h4>
+                </div>
+                <div class="profilePic-display">
+                    <img src="~/images/profilePics/@Model.AspNetUser.ProfilePic" alt="@Model.AspNetUser.UserName @Model.AspNetUser.LastName" class="profilePic" />
+                </div>
+            </section>
+        </div>
+
+        @if (Model.AspNetUserId == ViewBag.UserId)
+        {
+            <form asp-action="Delete" asp-controller="Product" asp-route-id="@Model.ProductId">
+                <a class="option edit-link" asp-controller="Product" asp-action="Edit" asp-route-id="@Model.ProductId">
+                    <p class="edit">edit product</p>
+                </a>
+                <button class="option" type="submit">
+                    <p class="delete">delete product</p>
+                </button>
+            </form>
+        }
+    </div>
+</div>
